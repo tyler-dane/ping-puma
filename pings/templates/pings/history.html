@@ -1,0 +1,9 @@
+{% if recent_pings %}
+    <ul>
+    {% for ping in recent_pings %}
+        <li><a href="/pings/{{ guest_id }}/">{{ ping.body }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No pings are available.</p>
+{% endif %}

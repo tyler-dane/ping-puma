@@ -1,0 +1,10 @@
+{% if ping_subjects %}
+    <ul>
+        {% for ping in ping_subjects %}
+        <li>{{ ping.subject }}</li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No pings are available.</p>
+{% endif %}

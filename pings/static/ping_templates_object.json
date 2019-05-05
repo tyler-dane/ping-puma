@@ -1,0 +1,21 @@
+{
+  "welcome": {
+    "subject": "Welcome",
+    "opening":  "Good",
+    "timeOfDay": "",
+    "guestName" : "",
+    "punc1": ", ",
+    "message": "and welcome to ",
+    "company": "",
+    "punc2": "!",
+    "room": "Room",
+    "roomNumber": "",
+    "isReady": "is now ready for you",
+    "punc3": ".",
+    "closing": "Enjoy your stay, and let us know if you need anything",
+    "punc4": "."
+  },
+  "checkoutReminder": {
+    "subject": "Checkout Reminder"
+  }
+}

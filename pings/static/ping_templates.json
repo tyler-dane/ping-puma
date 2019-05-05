@@ -1,0 +1,25 @@
+[
+  {
+    "subject": "Welcome",
+    "body": {
+      "opening": "Good ",
+      "timeOfDay": "{{ timeofDay }} ",
+      "guestFirstName": "{{ guestFirstName }}, ",
+      "message": " and welcome to ",
+      "company": "{{ company }}! ",
+      "room": "Room ",
+      "roomNumber": "{{ roomNumber }} ",
+      "isReady": "is now ready for you. ",
+      "closing": "Enjoy your stay, and let us know if you need anything."
+    }
+  },
+  {
+    "subject": "Checkout Reminder",
+    "body": {
+      "opening": "Good",
+      "timeOfDay": "{{ timeofDay }}, ",
+      "guestFirstName": "{{ guestFirstName }}!",
+      "message": "This is a friendly reminder that checkout is at 11:00 AM tomorrow."
+    }
+  }
+]

@@ -1,0 +1,4 @@
+pings/migrations/*
+pings/*__pychache__*
+.idea/
+venv/
