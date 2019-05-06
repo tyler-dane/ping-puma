@@ -9,6 +9,7 @@ Add sth to avoid running into duplicate key errors when populating JSON
 - Drop Guest, Company table after logout?
 
 Run init_databases script if no models
+Make models consistent casing (camel vs _s)
 
 #### Making model changes 
 

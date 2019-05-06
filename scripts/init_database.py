@@ -35,19 +35,14 @@ def init_ping_templates():
             subject=i["subject"],
             body=body,
             employee_name="",
-            template=True
+            isTemplate=True
         )
     print("Ping models created")
 
 def clean_guest_data(guest_list):
     """returns Django-compatible DateTimeField object by converting
     epoch to date.time.datetime"""
-
-    with open('pings/static/guests_formatted.json', 'r') as file:
-        json_data = json.load(file)
-
-        for i in json_data:
-            i['startTimestamp'] = datetime.datetime.fromtimestamp(i['startTimestamp'])
-            i['endTimestamp'] = datetime.datetime.fromtimestamp(i['endTimestamp'])
-        print(json_data)
-    return json_data
+    for i in guest_list:
+        i['startTimestamp'] = datetime.datetime.fromtimestamp(i['startTimestamp'])
+        i['endTimestamp'] = datetime.datetime.fromtimestamp(i['endTimestamp'])
+    return guest_list
