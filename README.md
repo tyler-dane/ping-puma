@@ -32,6 +32,7 @@ Requirements
 - django-extensions
 
 ### Design Decisions
+- Used Django for practice
 - Used templates for views to avoid hard-coded, tightly-coupled URLs
 - Removed `id` from .json because Django auto-assigns and id
 - Removed `reservation` from .json to facilitate auto-import to Django. Would allow for this if I dedicated more time

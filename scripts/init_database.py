@@ -14,7 +14,7 @@ def init_companies():
     companies = json.load(open('pings/static/companies.json'))
     for c in companies:
         Company.objects.create(**c)
-        print(Company.city)
+    print("Company models created")
 
 
 def init_guests():
@@ -23,6 +23,7 @@ def init_guests():
     cleaned_guest_data = clean_guest_data(guests)
     for g in cleaned_guest_data:
         Guest.objects.create(**g)
+    print("Guest models created")
 
 
 def init_ping_templates():
@@ -33,10 +34,10 @@ def init_ping_templates():
         Ping.objects.create(
             subject=i["subject"],
             body=body,
-            employee_name=""
+            employee_name="",
+            template=True
         )
-        print("'%s' Ping created " % i["subject"])
-
+    print("Ping models created")
 
 def clean_guest_data(guest_list):
     """returns Django-compatible DateTimeField object by converting
@@ -50,26 +51,3 @@ def clean_guest_data(guest_list):
             i['endTimestamp'] = datetime.datetime.fromtimestamp(i['endTimestamp'])
         print(json_data)
     return json_data
-
-
-
-# TODO delete before submitting
-def manual_test():
-    print('creating Company...')
-    company1 = Company.objects.create(
-        id=92,
-        company='Polar Enterprises',
-        city='Madison',
-        timezone='America/Chicago'
-    )
-    print(company1.city)
-
-    company2_json = {
-        "id": 212,
-        "company": "Hotel California",
-        "city": "Santa Barbara",
-        "timezone": "US/Pacific"
-    }
-
-    company2 = Company.objects.create(**company2_json)
-    print(company2.timezone)

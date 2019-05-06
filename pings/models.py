@@ -44,6 +44,7 @@ class Ping(models.Model):
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=5000)
     employee_name = models.CharField(max_length=50)
+    #is_template = models.BooleanField()
     #created_time = models.DateTimeField('created at')
 
     def __str__(self):

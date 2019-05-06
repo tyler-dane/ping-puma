@@ -13,10 +13,11 @@ def index(request):
     return render(request, 'pings/index.html', context)
 
 
-def templates(request, guest_id):
+def templates(request):
     """returns serialized object as a JSON-formatted string"""
-    json_data = json.load(open('pings/static/ping_templates.json'))
-    template_data = json.dumps(json_data)
+    #json_data = json.load(open('pings/static/ping_templates.json'))
+    #template_data = json.dumps(json_data)
+    template_data = Ping.objects.order_by('subject')
     context = {'template_data': template_data}
     return render(request, 'pings/ping_templates.html', context)
 

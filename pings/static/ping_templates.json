@@ -16,9 +16,9 @@
   {
     "subject": "Checkout Reminder",
     "body": {
-      "opening": "Good",
+      "opening": "Good ",
       "timeOfDay": "{{ timeofDay }}, ",
-      "guestFirstName": "{{ guestFirstName }}!",
+      "guestFirstName": "{{ guestFirstName }}! ",
       "message": "This is a friendly reminder that checkout is at 11:00 AM tomorrow."
     }
   }
