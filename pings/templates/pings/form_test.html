@@ -1,10 +1,20 @@
-<p>testing forms</p>
-
 <form action="/pings/" method="POST">
     {% csrf_token %}
 
-    {{ form.as_p }}
-    <input type="text" value="{{ping_form}}">
-    <input type="submit" value="Submit">
-    <button type="submit" class="Save btn btn-default">Save</button>
+    {{ ping_form }}
+
+    <div class="container">
+        <h2>Pings</h2>
+        {% for ping in ping_form %}
+            <p>Subject: {{ ping.subject }}</p>
+            <p>Body: {{ ping.body }}</p>
+        {% endfor %}
+        <input type="submit" value="Submit">
+        <button type="submit" class="Save btn btn-default">Save</button>
+
+        <h2>Add Ping</h2>
+        <p>Subject: <input type="text"></p>
+        <p>Body: <input type="text"></p>
+        <button type="submit">Submit</button>
+    </div>
 </form>

@@ -48,7 +48,8 @@ def ping_form_test(request):
             # redirect to a new URL:
             return render(request, 'pings/form_test.html', {'pings': pings})
     else:
-        ping_form = PingForm
+        #ping_form = PingForm
+        ping_form = Ping.objects.all()
         print('created PingForm')
 
     return render(request, 'pings/form_test.html', {'ping_form': ping_form})
