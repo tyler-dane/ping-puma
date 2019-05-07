@@ -2,9 +2,9 @@
 <div class="container">
     <h1>Pings</h1>
     <div>
-        {% if ping_subjects %}
+        {% if pings %}
         <ul>
-            {% for ping in ping_subjects %}
+            {% for ping in pings %}
             {{ ping.subject }}:
                 <li>Body: {{ ping.body }}</li>
             <br>
@@ -16,7 +16,7 @@
         {% endif %}
     </div>
 
-    <a href="formtest/">
+    <a href="add_ping/">
         <button type="button" class="btn btn-default">Add Ping</button>
     </a>
 

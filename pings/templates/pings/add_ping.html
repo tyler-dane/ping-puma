@@ -1,16 +1,10 @@
-<form action="/pings/" method="POST">
+<form action="" method="POST">
     {% csrf_token %}
 
-    <h2>Ping Form:</h2>
-        {{ ping_form.as_table }}
+    {{ ping_form }}
 
     <div class="container">
-        <h2>Pings</h2>
-        {% for ping in ping_form %}
-            <p>Subject: {{ ping.subject }}</p>
-            <p>Body: {{ ping.body }}</p>
-        {% endfor %}
-
+        <h2>Add Ping</h2>
         <button type="submit">Submit</button>
     </div>
 </form>

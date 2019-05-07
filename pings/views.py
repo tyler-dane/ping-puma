@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
@@ -9,8 +9,8 @@ from pings.forms import PingForm
 
 def index(request):
     """returns list of ping objects alphabetically by subject"""
-    ping_subjects = Ping.objects.order_by('subject')
-    context = {'ping_subjects': ping_subjects}
+    pings = Ping.objects.order_by('subject')
+    context = {'pings': pings}
     return render(request, 'pings/index.html', context)
 
 
@@ -38,23 +38,16 @@ def history(request, guest_id):
     return render(request, 'pings/history.html', context)
 
 
-def ping_form_test(request):
-    print('request method: ', request.method)
+def add_ping(request):
     if request.method == 'POST':
         ping_form = PingForm(request.POST)
-        print('ping_form: ', ping_form)
         if ping_form.is_valid():
-            # process the data in form.cleaned_data as required
-            text = ping_form.cleaned_data['body']
+            # save to DB and return to /pings view
             ping_form.save()
-            pings = Ping.objects.all()
-            # redirect to a new URL:
-            return render(request, 'pings/form_test.html', {'pings': pings})
+            return redirect('/pings')
         else:
-            print('**form is not valid**')
+            print('Form is not valid**')
     else:
-        #ping_form = PingForm
-        ping_form = Ping.objects.all()
-        print('created new PingForm')
+        ping_form = PingForm
 
-    return render(request, 'pings/form_test.html', {'ping_form': ping_form})
+        return render(request, 'pings/add_ping.html', {'ping_form': ping_form})

@@ -16,5 +16,5 @@ urlpatterns = [
     # ex: /pings/1/history/
     path('<int:guest_id>/history/', views.history, name='history'),
 
-    path('formtest/', views.ping_form_test, name='formtest')
+    path('add_ping/', views.add_ping, name='add_ping')
 ]
