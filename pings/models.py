@@ -36,7 +36,6 @@ class Guest(models.Model):
         setattr(self, key, value)
 
     def checked_in_within_last_24hrs(self):
-        """return """
         return self.checkin_time >= timezone.now - datetime.timedelta(days=1)
 
 
@@ -44,8 +43,7 @@ class Ping(models.Model):
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=5000)
     employee_name = models.CharField(max_length=50)
-    isTemplate = models.BooleanField(default=False)
-    #created_time = models.DateTimeField('created at')
+    is_template = models.BooleanField(default=False)
 
     def __str__(self):
         """returns a human-readable representation of the model"""

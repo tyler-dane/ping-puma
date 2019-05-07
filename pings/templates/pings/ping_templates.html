@@ -1,5 +1,8 @@
-{% if template_data %}
-    {{ template_data }}
+{% if ping_templates %}
+        {% for ping in ping_templates %}
+            {{ ping.subject }}
+                <li>{{ ping.body }}</li>
+        {% endfor %}
 {% else %}
     <p>No ping templates available</p>
 {% endif %}

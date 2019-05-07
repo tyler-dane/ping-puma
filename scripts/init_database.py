@@ -35,7 +35,7 @@ def init_ping_templates():
             subject=i["subject"],
             body=body,
             employee_name="",
-            isTemplate=True
+            is_template=True
         )
     print("Ping models created")
 

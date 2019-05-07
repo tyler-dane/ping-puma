@@ -17,5 +17,7 @@ urlpatterns = [
     path('<int:guest_id>/custom/', views.custom, name='custom'),
 
     # ex: /pings/1/history/
-    path('<int:guest_id>/history/', views.history, name='history')
+    path('<int:guest_id>/history/', views.history, name='history'),
+
+    path('formtest/', views.ping_form_test, name='formtest')
 ]

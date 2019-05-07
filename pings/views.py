@@ -1,9 +1,10 @@
 import json
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
 from .models import Ping
+from pings.forms import PingForm
 
 
 def index(request):
@@ -14,11 +15,9 @@ def index(request):
 
 
 def templates(request):
-    """returns serialized object as a JSON-formatted string"""
-    #json_data = json.load(open('pings/static/ping_templates.json'))
-    #template_data = json.dumps(json_data)
-    template_data = Ping.objects.order_by('subject')
-    context = {'template_data': template_data}
+    """returns Ping templates"""
+    ping_templates = Ping.objects.filter(is_template=True).order_by('subject')
+    context = {'ping_templates': ping_templates}
     return render(request, 'pings/ping_templates.html', context)
 
 
@@ -37,3 +36,19 @@ def history(request, guest_id):
     recent_pings = Ping.objects.order_by('-created_time')[:5]
     context = {'recent_pings': recent_pings}
     return render(request, 'pings/history.html', context)
+
+
+def ping_form_test(request):
+    if request.method == 'POST':
+        ping_form = PingForm(request.POST)
+        if ping_form.is_valid():
+            # process the data in form.cleaned_data as required
+            ping_form.save()
+            pings = Ping.objects.all()
+            # redirect to a new URL:
+            return render(request, 'pings/form_test.html', {'pings': pings})
+    else:
+        ping_form = PingForm
+        print('created PingForm')
+
+    return render(request, 'pings/form_test.html', {'ping_form': ping_form})

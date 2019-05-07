@@ -1,15 +1,21 @@
 TEMP - Delete before submitting
 
 ### TODO
-use Model values to display messages in `ping_templates.html`
+**Core Reqirements**
+Forms
+- Allow user to create custom Pings
+- Allow user to pick which Company&Guest to associate with their custom Ping
+Views
+- Render Ping, Company, and Guests to views
+Other
+- Add a greeting variable that changes on time of day
 
-Add a greeting variable that changes on time of day
-
-Add sth to avoid running into duplicate key errors when populating JSON
-- Drop Guest, Company table after logout?
-
-Run init_databases script if no models
-Make models consistent casing (camel vs _s)
+Clean up
+- Add sth to avoid running into duplicate key errors when populating JSON
+    - Drop Guest, Company table after logout?
+  
+Deploy
+- Run init_databases script if no models
 
 #### Making model changes 
 
