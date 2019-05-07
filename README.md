@@ -39,7 +39,14 @@ Requirements
 - django-extensions
 
 ### Design Decisions
+**Stack**
 - Used Django for practice
-- Used templates for views to avoid hard-coded, tightly-coupled URLs
+- templates for views to avoid hard-coded, tightly-coupled URLs
+- ModelForm to associate forms with models without duplicating code
+
+
 - Removed `id` from .json because Django auto-assigns and id
 - Removed `reservation` from .json to facilitate auto-import to Django. Would allow for this if I dedicated more time
+
+### If Had More Time
+- Eliminate all hard-coded values (i.e. urls in templates)

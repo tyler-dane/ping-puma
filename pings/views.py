@@ -39,18 +39,22 @@ def history(request, guest_id):
 
 
 def ping_form_test(request):
+    print('request method: ', request.method)
     if request.method == 'POST':
         ping_form = PingForm(request.POST)
+        print('ping_form: ', ping_form)
         if ping_form.is_valid():
             # process the data in form.cleaned_data as required
+            text = ping_form.cleaned_data['body']
             ping_form.save()
             pings = Ping.objects.all()
             # redirect to a new URL:
             return render(request, 'pings/form_test.html', {'pings': pings})
+        else:
+            print('**form is not valid**')
     else:
-        print(request.method)
         #ping_form = PingForm
         ping_form = Ping.objects.all()
         print('created new PingForm')
 
-        return render(request, 'pings/form_test.html', {'ping_form': ping_form})
+    return render(request, 'pings/form_test.html', {'ping_form': ping_form})

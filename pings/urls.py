@@ -7,9 +7,6 @@ urlpatterns = [
     # ex: /pings/
     path('', views.index, name='index'),
 
-    # ex: /pings/1
-    #path('<int:guest_id>/', views.templates, name='templates'),
-
     # ex: /pings/templates/
     path('templates/', views.templates, name='templates'),
 

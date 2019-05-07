@@ -1,10 +1,24 @@
-{% if ping_subjects %}
-    <ul>
-        {% for ping in ping_subjects %}
-        <li>{{ ping.subject }}</li>
-        {% endfor %}
-    </ul>
+{% block body %}
+<div class="container">
+    <h1>Pings</h1>
+    <div>
+        {% if ping_subjects %}
+        <ul>
+            {% for ping in ping_subjects %}
+            {{ ping.subject }}:
+                <li>Body: {{ ping.body }}</li>
+            <br>
+            {% endfor %}
+        </ul>
 
-{% else %}
-    <p>No pings are available.</p>
-{% endif %}
+        {% else %}
+            <p>No pings are available.</p>
+        {% endif %}
+    </div>
+
+    <a href="formtest/">
+        <button type="button" class="btn btn-default">Add Ping</button>
+    </a>
+
+</div>
+{% endblock %}
