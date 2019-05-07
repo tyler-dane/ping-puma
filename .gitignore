@@ -1,4 +1,5 @@
 pings/migrations/*
 pings/*__pychache__*
+*.pyc*
 .idea/
 venv/
