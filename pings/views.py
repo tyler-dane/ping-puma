@@ -23,6 +23,7 @@ def templates(request):
 
 
 def add_ping(request):
+    """creates custom ping, saves to DB, and redirects to index"""
     if request.method == 'POST':
         ping_form = PingForm(request.POST)
         if ping_form.is_valid():
@@ -37,14 +38,22 @@ def add_ping(request):
         return render(request, 'pings/add_ping.html', {'ping_form': ping_form})
 
 
-def add_ping_from_template(request, ping):
+def add_ping_from_template(request):
+    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
+
     if request.method == 'POST':
-        print('post')
-        #form = PingFromTemplateForm(request.POST, instance=request.template_ping)
-        ping.pk = None  # make copy of template ping object
-        ping.save()
+        ping_template = PingFromTemplateForm(request.POST)
+        context = {'current_templates': current_templates,
+                   'ping_template': ping_template}
+        #validate
+        #save to db
+        return render(request, 'pings/add_ping_from_template.html', context)
+
     else:
-        print('not post')
+        ping_template = PingFromTemplateForm
+        context = {'current_templates': current_templates,
+                   'ping_template': ping_template}
+        return render(request, 'pings/add_ping_from_template.html', context)
 
 
 def history(request, guest_id):

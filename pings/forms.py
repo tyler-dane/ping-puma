@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 from pings.models import Ping
 
@@ -17,5 +18,6 @@ class PingForm(ModelForm):
         return ping
 
 
-class PingFromTemplateForm(PingForm):
-    pass
+class PingFromTemplateForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    body = forms.CharField(max_length=5000)

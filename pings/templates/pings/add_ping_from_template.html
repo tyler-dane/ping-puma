@@ -1,0 +1,24 @@
+<form action="/pings/" method="POST">
+    {% csrf_token %}
+
+    <div class="container">
+        <div>
+            <h1>Current Templates</h1>
+            {% for ping in current_templates %}
+                <b>{{ping.subject}}:</b>
+                {{ping.body}}
+                <br>
+            {% endfor %}
+        </div>
+
+        <h2>Add Ping From Template</h2>
+        {{ ping_template }}
+        {% if ping_template %}
+            <b>{{ template.subject }}</b>
+            <br>
+        {% else %}
+            <p>No template to use. Go back and create/select a template first</p>
+        {% endif %}
+        <button type="submit">Select</button>
+    </div>
+</form>
