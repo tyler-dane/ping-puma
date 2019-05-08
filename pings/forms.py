@@ -18,6 +18,20 @@ class PingForm(ModelForm):
         return ping
 
 
+
+
+
+
 class PingFromTemplateForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    body = forms.CharField(max_length=5000)
+    pass
+#     subject = forms.CharField(max_length=100)
+#     body = forms.CharField(widget=forms.Textarea, max_length=5000)
+#
+#     def save(self, commmit=True):
+#         ping = super(PingFromTemplateForm, self).save(commit=False)
+#         ping.subject = self.cleaned_data['subject']
+#         ping.body = self.cleaned_data['body']
+#
+#         if commmit:
+#             ping.save()
+#         return ping

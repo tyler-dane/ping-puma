@@ -52,5 +52,8 @@ Requirements
 ### If Had More Time
 - Eliminate all hard-coded values (i.e. urls in templates)
 - Make model more flexible so none of the `.json` files would need to be edited before importing
-- Add more error handling (e.g. if user tried making a ping from multiple templates at once)
+- Add more error handling
+    - (e.g. if user tried making a ping from multiple templates at once)
+    - Throwing more specific errors (`ValidationError`) 
 - Abstract styling and templating to reduce duplication (e.g. when rendering list of pings acrossm ultiple .html files)
+- Use Django's `data migration` to import data instead of script

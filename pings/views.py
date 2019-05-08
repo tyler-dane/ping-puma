@@ -1,11 +1,8 @@
-import json
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from .forms import PingFromTemplateForm
 
 from .models import Ping
-from pings.forms import PingForm
+from pings.forms import PingForm, PingFromTemplateForm
 
 
 def index(request):
@@ -27,11 +24,10 @@ def add_ping(request):
     if request.method == 'POST':
         ping_form = PingForm(request.POST)
         if ping_form.is_valid():
-            # save to DB and return to /pings view
             ping_form.save()
             return redirect('/pings')
         else:
-            print('Form is not valid**')
+            print('Invalid form')
     else:
         ping_form = PingForm
 
@@ -39,20 +35,14 @@ def add_ping(request):
 
 
 def add_ping_from_template(request):
-    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
-
+    #TODO use identifier to specify which ping
     if request.method == 'POST':
-        ping_template = PingFromTemplateForm(request.POST)
-        context = {'current_templates': current_templates,
-                   'ping_template': ping_template}
-        #validate
-        #save to db
-        return render(request, 'pings/add_ping_from_template.html', context)
-
+        context = {}
+        return render_to_response('add_ping_from_template.html', context)
     else:
-        ping_template = PingFromTemplateForm
-        context = {'current_templates': current_templates,
-                   'ping_template': ping_template}
+        ping = get_object_or_404(Ping)
+        ping_template = PingForm(instance=ping)
+        context = {'ping_template': ping_template}
         return render(request, 'pings/add_ping_from_template.html', context)
 
 
@@ -64,3 +54,24 @@ def history(request, guest_id):
     recent_pings = Ping.objects.order_by('-created_time')[:5]
     context = {'recent_pings': recent_pings}
     return render(request, 'pings/history.html', context)
+
+
+def old_add_ping_from_template(request):
+    #TODO Delete
+    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
+
+    if request.method == 'POST':
+        ping_template = PingFromTemplateForm(request.POST)
+        if ping_template.is_valid():
+            subject = ping_template.cleaned_data['subject']
+            print(subject)
+            ping_template.save()
+            return redirect('/pings')
+        else:
+            print('Invalid form')
+
+    else:
+        ping_template = PingFromTemplateForm
+        context = {'current_templates': current_templates,
+                   'ping_template': ping_template}
+        return render(request, 'pings/add_ping_from_template.html', context)

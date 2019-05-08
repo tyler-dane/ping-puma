@@ -12,9 +12,8 @@
         </div>
 
         <h2>Add Ping From Template</h2>
-        {{ ping_template }}
         {% if ping_template %}
-            <b>{{ template.subject }}</b>
+            {{ ping_template }}
             <br>
         {% else %}
             <p>No template to use. Go back and create/select a template first</p>
