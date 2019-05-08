@@ -1,12 +1,12 @@
 {% block body %}
 <div class="container">
-    <h1>Pings</h1>
     <div>
+        <h1>All Pings</h1>
         {% if pings %}
         <ul>
             {% for ping in pings %}
-            {{ ping.subject }}:
-                <li>Body: {{ ping.body }}</li>
+            <b>{{ ping.subject }}:</b>
+            {{ ping.body }}
             <br>
             {% endfor %}
         </ul>
@@ -15,10 +15,27 @@
             <p>No pings are available.</p>
         {% endif %}
     </div>
+    <div>
+        <h1>Templates</h1>
+        {% if pings %}
+            {% for ping in pings %}
+                {% if ping.is_template %}
+                <b>{{ ping.subject }}:</b>
+                {{ ping.body }}
+                <br>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No templates</p>
+        {% endif %}
+    </div>
 
+    <br>
     <a href="add_ping/">
-        <button type="button" class="btn btn-default">Add Ping</button>
+        <button type="button" class="btn btn-default">Add New Ping</button>
     </a>
-
+    <a href="add_ping/">
+        <button type="button" class="btn btn-default">Add Ping From Template</button>
+    </a>
 </div>
 {% endblock %}

@@ -34,7 +34,6 @@ def init_ping_templates():
         Ping.objects.create(
             subject=i["subject"],
             body=body,
-            employee_name="",
             is_template=True
         )
     print("Ping models created")

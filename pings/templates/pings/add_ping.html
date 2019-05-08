@@ -1,10 +1,9 @@
 <form action="" method="POST">
     {% csrf_token %}
 
-    {{ ping_form }}
-
     <div class="container">
         <h2>Add Ping</h2>
+        {{ ping_form.as_p }}
         <button type="submit">Submit</button>
     </div>
 </form>

@@ -41,12 +41,14 @@ Requirements
 ### Design Decisions
 **Stack**
 - Used Django for practice
-- templates for views to avoid hard-coded, tightly-coupled URLs
+- Templates for views to avoid hard-coded, tightly-coupled URLs
 - ModelForm to associate forms with models without duplicating code
 
-
+**Other**
+- Refer to messages as `pings` in order to avoid naming conflicts with Django
 - Removed `id` from .json because Django auto-assigns and id
-- Removed `reservation` from .json to facilitate auto-import to Django. Would allow for this if I dedicated more time
+- Removed `reservation` from .json to facilitate auto-import to Django.
 
 ### If Had More Time
 - Eliminate all hard-coded values (i.e. urls in templates)
+- Make model more flexible so none of the `.json` files would need to be edited before importing
