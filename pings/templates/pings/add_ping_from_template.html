@@ -7,7 +7,7 @@
         <div>
             <h2>Select From Current Templates</h2>
             {% for ping in current_templates %}
-                <input type="radio"><b>{{ping.subject}}:</b>
+                <input type="radio" name="template"><b>{{ping.subject}}:</b>
                 {{ping.body}}
                 <br>
             {% endfor %}

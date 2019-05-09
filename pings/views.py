@@ -42,9 +42,10 @@ def add_ping_from_template(request):
         context = {}
         return render_to_response('add_ping_from_template.html', context)
     else:
-        ping = get_object_or_404(Ping)
-        print('ping:', ping)
-        ping_template = PingForm(instance=ping)
+        #TODO re-implement or delete pre-populated forms
+        #ping = get_object_or_404(Ping)
+        #ping_template = PingForm(instance=ping)
+        ping_template = PingForm()
         print('ping_template:', ping_template)
         context = {'current_templates': current_templates,
                    'ping_template': ping_template}
