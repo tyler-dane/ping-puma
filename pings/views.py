@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Ping
-from pings.forms import PingForm, PingFromTemplateForm
+from pings.forms import PingForm, PingFromTemplateForm, bound_form
 
 
 def index(request):
@@ -35,14 +35,19 @@ def add_ping(request):
 
 
 def add_ping_from_template(request):
-    #TODO use identifier to specify which ping
+    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
+
     if request.method == 'POST':
+        # save to DB
         context = {}
         return render_to_response('add_ping_from_template.html', context)
     else:
         ping = get_object_or_404(Ping)
+        print('ping:', ping)
         ping_template = PingForm(instance=ping)
-        context = {'ping_template': ping_template}
+        print('ping_template:', ping_template)
+        context = {'current_templates': current_templates,
+                   'ping_template': ping_template}
         return render(request, 'pings/add_ping_from_template.html', context)
 
 

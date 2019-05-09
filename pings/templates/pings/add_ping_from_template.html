@@ -3,15 +3,14 @@
 
     <div class="container">
         <div>
-            <h1>Current Templates</h1>
+            <h2>Select From Current Templates</h2>
             {% for ping in current_templates %}
-                <b>{{ping.subject}}:</b>
+                <input type="radio"><b>{{ping.subject}}:</b>
                 {{ping.body}}
                 <br>
             {% endfor %}
         </div>
-
-        <h2>Add Ping From Template</h2>
+        <div>
         {% if ping_template %}
             {{ ping_template }}
             <br>

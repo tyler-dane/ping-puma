@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pings.middleware.pinginfo.TrackPingMiddleware',
+    'pings.middleware.time.GetTimeMiddleware'
 ]
 
 ROOT_URLCONF = 'ping_puma.urls'
