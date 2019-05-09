@@ -1,4 +1,6 @@
-<form action="/pings/" method="POST">
+{% load static %}
+
+<form action="/pings/" method="POST" id="template-form">
     {% csrf_token %}
 
     <div class="container">
@@ -18,5 +20,10 @@
             <p>No template to use. Go back and create/select a template first</p>
         {% endif %}
         <button type="submit">Select</button>
+        <button type="submit">TestJS</button>
+        </div>
     </div>
 </form>
+
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
