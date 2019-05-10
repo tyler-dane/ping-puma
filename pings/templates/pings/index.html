@@ -16,9 +16,7 @@
         {% else %}
             <p>No pings are available.</p>
         {% endif %}
-        <a href="add-ping/">
-        <button type="button" class="btn btn-default">Add Custom Ping</button>
-        </a>
+
     </div>
     <div>
         <h1>Templates</h1>
@@ -34,9 +32,15 @@
             <p>No templates</p>
         {% endif %}
         <br>
-        <a href="add-ping-from-template/">
-            <button type="button" class="btn btn-default">Add Ping From Template</button>
-        </a>
+    </div>
+    <div>
+        <h1>Add Ping</h1>
+        {{ ping_form.as_p }}
+    </div>
+    <div>
+         <a href="add-ping/">
+        <button type="button" class="btn btn-default">Add Ping</button>
+         </a>
     </div>
 </div>
 {% endblock %}

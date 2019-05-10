@@ -8,7 +8,8 @@ from pings.forms import PingForm, PingFromTemplateForm, bound_form
 def index(request):
     """returns list of ping objects alphabetically by subject"""
     pings = Ping.objects.order_by('subject')
-    context = {'pings': pings}
+    ping_form = PingForm
+    context = {'pings': pings, 'ping_form': ping_form}
     return render(request, 'pings/index.html', context)
 
 
@@ -21,7 +22,15 @@ def templates(request):
 
 def add_ping(request):
     """creates custom ping, saves to DB, and redirects to index"""
+    get_text = request.POST.get("subject")
+    #get_text = request.POST.
+    print(get_text)
+    ping_templates = Ping.objects.filter(is_template=True).order_by('subject')
     if request.method == 'POST':
+        subject = request.POST['subject']
+        body = request.POST['body']
+        print('** subject:', subject)
+        print('**body :', body)
         ping_form = PingForm(request.POST)
         if ping_form.is_valid():
             ping_form.save()
@@ -29,9 +38,10 @@ def add_ping(request):
         else:
             print('Invalid form')
     else:
-        ping_form = PingForm
+        ping_form = PingForm(initial={'subject': 'ty rox'})
 
-        return render(request, 'pings/add_ping.html', {'ping_form': ping_form})
+        context = {'ping_templates': ping_templates, 'ping_form': ping_form}
+        return render(request, 'pings/add_ping.html', context)
 
 
 def add_ping_from_template(request):
@@ -42,9 +52,6 @@ def add_ping_from_template(request):
         context = {}
         return render_to_response('add_ping_from_template.html', context)
     else:
-        #TODO re-implement or delete pre-populated forms
-        #ping = get_object_or_404(Ping)
-        #ping_template = PingForm(instance=ping)
         ping_template = PingForm()
         print('ping_template:', ping_template)
         context = {'current_templates': current_templates,
