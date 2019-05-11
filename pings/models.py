@@ -42,6 +42,7 @@ class Ping(models.Model):
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=5000)
     is_template = models.BooleanField(default=False)
+    guest = models.ForeignKey(Guest, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         """returns a human-readable representation of the model"""
