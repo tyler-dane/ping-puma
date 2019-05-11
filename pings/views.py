@@ -1,8 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, render_to_response
 
 from .models import Ping
-from pings.forms import PingForm, PingFormExpanded, PingFromTemplateForm, bound_form
+from pings.forms import PingForm, PingFormExpanded
 
 
 def index(request):
@@ -40,9 +39,15 @@ def add_ping(request):
         subject = request.POST["subject"]
         body = request.POST["body"]
         is_template = get_template_bool(request)
+        if is_template:
+            fill_template_data(subject, body)
 
         ping_form = PingForm(
-            {'subject': subject, 'body': body, 'is_template': is_template})
+            {'subject': subject,
+             'body': body,
+             'is_template': is_template}
+        )
+
         if ping_form.is_valid():
             ping_form.save()
             return redirect('/pings')
@@ -59,7 +64,6 @@ def add_ping_from_template(request):
     current_templates = Ping.objects.filter(is_template=True).order_by('subject')
 
     if request.method == 'POST':
-        # save to DB
         context = {}
         return render_to_response('add_ping_from_template.html', context)
     else:
@@ -70,21 +74,16 @@ def add_ping_from_template(request):
         return render(request, 'pings/add_ping_from_template.html', context)
 
 
-def history(request, guest_id):
-    """
-    returns list of recently-added Pings by loading a template,
-    filling context and returning an HttpResponse object
-    """
-    recent_pings = Ping.objects.order_by('-created_time')[:5]
-    context = {'recent_pings': recent_pings}
-    return render(request, 'pings/history.html', context)
-
-
 ###########################
 # Utility Functions       #
 ###########################
 def get_template_bool(request):
-    if "is_template" in request.POST:  # only present if user checked on form
+    if "is_template" in request.POST:  # only present if user checked form
         return True
     else:
         return False
+
+
+def fill_template_data(subject, body):
+    if "{{ " in body:
+        print('## found {{}} ')

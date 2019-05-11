@@ -16,8 +16,4 @@ urlpatterns = [
     # /pings/templates/
     path('templates/', views.templates, name='templates'),
 
-    # /pings/1/history/
-    path('<int:guest_id>/history/', views.history, name='history')
-
-
 ]
