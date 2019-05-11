@@ -5,18 +5,16 @@
         {% if pings %}
         <ul>
             {% for ping in pings %}
-                {% if ping.is_template is False%}
+                {% if ping.is_template is False %}
                 <b>{{ ping.subject }}:</b>
                 {{ ping.body }}
                 <br>
                 {% endif%}
             {% endfor %}
         </ul>
-
         {% else %}
             <p>No pings are available.</p>
         {% endif %}
-
     </div>
     <div>
         <h1>Templates</h1>
@@ -33,14 +31,16 @@
         {% endif %}
         <br>
     </div>
-    <div>
+    <form action="add-ping/" method="POST">
+        <div class="container">
+        {% csrf_token %}
+
         <h1>Add Ping</h1>
-        {{ ping_form.as_p }}
-    </div>
-    <div>
-         <a href="add-ping/">
-        <button type="button" class="btn btn-default">Add Ping</button>
-         </a>
-    </div>
+            {{ ping_form_expanded.as_p }}
+            !!Company: <input type="text" name="company">
+            <br>
+            <button type="submit" class="btn btn-default">Review Ping</button>
+        </div>
+    </form>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from django.shortcuts import get_object_or_404, render, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
 
 from pings.models import Ping
 
@@ -14,6 +14,25 @@ class PingForm(ModelForm):
         ping = super(PingForm, self).save(commit=False)
         ping.subject = self.cleaned_data['subject']
         ping.body = self.cleaned_data['body']
+
+        if commit:
+            ping.save()
+        return ping
+
+
+class PingFormExpanded(ModelForm):
+    guest = forms.CharField()
+    company = forms.CharField()
+
+    class Meta:
+        model = Ping
+        fields = ('subject', 'body', 'is_template', 'guest', 'company')
+
+    def save(self, commit=True):
+        ping = super(PingFormExpanded, self).save(commit=False)
+        ping.subject = self.cleaned_data['subject']
+        ping.body = self.cleaned_data['body']
+        print('$$$ cleaned data:', self.cleaned_data)
 
         if commit:
             ping.save()

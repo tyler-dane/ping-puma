@@ -2,16 +2,8 @@
     {% csrf_token %}
 
     <div class="container">
-        <h2>Add Custom Ping</h2>
+        <h2>Review Ping</h2>
         {{ ping_form.as_p }}
-
-        <h2>Add From Template</h2>
-        {% for ping in ping_templates %}
-            <input type="radio" name="template"><b>{{ping.subject}}:</b>
-            {{ping.body}}
-            <br>
-        {% endfor %}
-
         <button type="submit">Submit</button>
     </div>
 </form>

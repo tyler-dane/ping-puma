@@ -2,15 +2,28 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Ping
-from pings.forms import PingForm, PingFromTemplateForm, bound_form
+from pings.forms import PingForm, PingFormExpanded, PingFromTemplateForm, bound_form
 
 
 def index(request):
-    """returns list of ping objects alphabetically by subject"""
+    """TODO comment"""
     pings = Ping.objects.order_by('subject')
-    ping_form = PingForm
-    context = {'pings': pings, 'ping_form': ping_form}
-    return render(request, 'pings/index.html', context)
+
+    if request.method == 'POST':
+        ping_form_expanded = PingFormExpanded(request.POST)
+        if ping_form_expanded.is_valid():
+            ping_form_expanded.save()
+            return redirect('/pings/add-ping')
+        else:
+            print('Invalid form')
+    else:
+        ping_form_expanded = PingFormExpanded(initial={
+            'subject': 'Give your Ping a subject',
+            'body': 'Enter message details here',
+            'is_template': False
+        })
+        context = {'pings': pings, 'ping_form_expanded': ping_form_expanded}
+        return render(request, 'pings/index.html', context)
 
 
 def templates(request):
@@ -22,23 +35,21 @@ def templates(request):
 
 def add_ping(request):
     """creates custom ping, saves to DB, and redirects to index"""
-    get_text = request.POST.get("subject")
-    #get_text = request.POST.
-    print(get_text)
     ping_templates = Ping.objects.filter(is_template=True).order_by('subject')
     if request.method == 'POST':
-        subject = request.POST['subject']
-        body = request.POST['body']
-        print('** subject:', subject)
-        print('**body :', body)
-        ping_form = PingForm(request.POST)
+        subject = request.POST["subject"]
+        body = request.POST["body"]
+        is_template = get_template_bool(request)
+
+        ping_form = PingForm(
+            {'subject': subject, 'body': body, 'is_template': is_template})
         if ping_form.is_valid():
             ping_form.save()
             return redirect('/pings')
         else:
             print('Invalid form')
     else:
-        ping_form = PingForm(initial={'subject': 'ty rox'})
+        ping_form = PingForm(initial={'subject': 'temp subject'})
 
         context = {'ping_templates': ping_templates, 'ping_form': ping_form}
         return render(request, 'pings/add_ping.html', context)
@@ -69,22 +80,11 @@ def history(request, guest_id):
     return render(request, 'pings/history.html', context)
 
 
-def old_add_ping_from_template(request):
-    #TODO Delete
-    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
-
-    if request.method == 'POST':
-        ping_template = PingFromTemplateForm(request.POST)
-        if ping_template.is_valid():
-            subject = ping_template.cleaned_data['subject']
-            print(subject)
-            ping_template.save()
-            return redirect('/pings')
-        else:
-            print('Invalid form')
-
+###########################
+# Utility Functions       #
+###########################
+def get_template_bool(request):
+    if "is_template" in request.POST:  # only present if user checked on form
+        return True
     else:
-        ping_template = PingFromTemplateForm
-        context = {'current_templates': current_templates,
-                   'ping_template': ping_template}
-        return render(request, 'pings/add_ping_from_template.html', context)
+        return False

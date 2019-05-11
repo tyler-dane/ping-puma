@@ -18,7 +18,6 @@ class Company(models.Model):
 
 
 class Guest(models.Model):
-    #company = models.ForeignKey(Company, on_delete=models.CASCADE)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
     reservation = models.CharField(max_length=500)
