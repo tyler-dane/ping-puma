@@ -36,17 +36,19 @@ def add_ping(request):
     """creates ping, saves to DB, and redirects to index"""
     ping_templates = Ping.objects.filter(is_template=True).order_by('subject')
     if request.method == 'POST':
+
         subject = request.POST["subject"]
         body = request.POST["body"]
+        company = request.POST["company"]
         guest = request.POST["guest"]
         is_template = get_template_bool(request)
         if is_template:
             fill_template_data(subject, body)
-
         ping_form = PingForm(
             {'subject': subject,
              'body': body,
              'is_template': is_template,
+             'company': company,
              'guest': guest
              }
         )
