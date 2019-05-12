@@ -20,12 +20,26 @@ function sendPing() {
     var templateBody = $('#template_select').find(":selected").text();
     var company = $('#company_select').find(":selected").text();
     var guest = $('#guest_select').find(":selected").text();
+
+    templateBody = fillTemplateValues(templateBody, company, guest);
+
     alert(
     "Successfully sent the following Ping: \n" +
     "\nSender: " + company +
     "\nRecipient: " + guest +
     "\nMessage: \n" + templateBody
     );
+}
+
+function fillTemplateValues(body, company, guest) {
+   var mapObj = {
+       COMPANY: company,
+       GUEST: guest
+    };
+    body = body.replace(/COMPANY|GUEST/gi, function(matched){
+      return mapObj[matched];
+    });
+    return body
 }
 
 
