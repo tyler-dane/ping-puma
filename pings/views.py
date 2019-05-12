@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, render_to_response
+from django.contrib import messages
 
 from .models import Ping, Company, Guest
-from pings.forms import PingForm, PingForm
+from pings.forms import PingForm
 
 
 def index(request):
@@ -14,13 +15,16 @@ def index(request):
         ping_form_expanded = PingForm(request.POST)
         if ping_form_expanded.is_valid():
             ping_form_expanded.save()
+            messages.success(request, 'Form saved!!!') #TODO fix or delete
             return redirect('/pings/add-ping')
         else:
             print('Invalid form')
     else:
         ping_form = PingForm(initial={
             'subject': 'Enter subject here',
-            'body': 'Enter message details here',
+            'body': 'Enter message details here.\n\nAfter clicking Send Custom Ping, you can view it under'
+                    ' the Custom Ping History list on this page or by looking for the message surrounded '
+                    'by *****s in your terminal',
             'is_template': False
         })
         context = {
@@ -49,8 +53,6 @@ def add_ping(request):
         company = request.POST["company"]
         guest = request.POST["guest"]
         is_template = get_template_bool(request)
-        if is_template:
-            fill_template_data(subject, body)
         ping_form = PingForm(
             {'subject': subject,
              'body': body,
@@ -95,7 +97,3 @@ def get_template_bool(request):
     else:
         return False
 
-
-def fill_template_data(subject, body):
-    if "{{ " in body:
-        print('## found {{}} ')

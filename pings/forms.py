@@ -1,3 +1,4 @@
+import pymsgbox as pymsgbox
 from django.forms import ModelForm
 from django.shortcuts import get_object_or_404, render_to_response
 
@@ -19,7 +20,15 @@ class PingForm(ModelForm):
         ping.company = self.cleaned_data['company']
 
         if commit:
+            success_str = \
+                "**********\n" \
+                "Successfully sent the following Ping: \n \nSender: {} \nRecipient: {} \nMessage: {}\n" \
+                "***********\n".format(
+                    ping.company, ping.guest, ping.body)
+            print(success_str)
+
             ping.save()
+
         return ping
 
 
