@@ -35,7 +35,7 @@
         Select guest to receive Ping:
         <select id="guest_select">
             {% for guest in guests %}
-                <option>{{ guest.lastName }}</option>
+                <option>{{ guest.firstName }} {{ guest.lastName }}</option>
             {% endfor %}
         </select>
         <p>

@@ -4,7 +4,7 @@ $(document).ready( function() { $("#template_select").change(function() { var se
 function sendTemplatePing() {
     var templateBody = $('#template_select').find(":selected").text();
     var company = $('#company_select').find(":selected").text();
-    var guest = $('#guest_select').find(":selected").text();
+    var guest = $('#guest_select').find(":selected").text().split(' ')[0];
     var timeOfDay = getTimeOfDay()
     var greeting = "Good " + timeOfDay + " " + guest + ", "
 
