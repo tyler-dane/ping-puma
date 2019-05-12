@@ -7,18 +7,14 @@
        <li>{{ message }}</li>
     {% endfor %}
 </ul>
-{% else %}
-<h1>NO MESSAGES</h1>
 {% endif %}
 
 <div class="container">
 
-
-
     <div>
         <h1>Send Template Ping</h1>
         <p>
-        Select Template to Use:
+        Select template Ping to Use:
         <select id="template_select">
             {% for ping in pings %}
                 {% if ping.is_template is True %}

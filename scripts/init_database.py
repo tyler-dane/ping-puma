@@ -2,8 +2,24 @@ import json
 import datetime
 from pings.models import Guest, Company, Ping
 
+placeholder_company = Company.objects.create(
+    company="Placeholder Company",
+    city="Placeholder City",
+    timezone="Placeholder Timezone"
+)
+
+placeholder_guest = Guest.objects.create(
+    firstName="Placeholder Guest",
+    lastName="Placeholder Guest",
+    reservation="Spam",
+    email="ham@gmail.com",
+    roomNumber=999,
+    startTimestamp=datetime.datetime.now(),
+    endTimestamp=datetime.datetime.now() + datetime.timedelta(days=2)
+)
 
 def run():
+
     init_companies()
     init_guests()
     init_ping_templates()
@@ -34,9 +50,13 @@ def init_ping_templates():
         Ping.objects.create(
             subject=i["subject"],
             body=body,
-            is_template=True
+            is_template=True,
+            company=placeholder_company,
+            guest=placeholder_guest
+
         )
     print("Ping models created")
+
 
 def clean_guest_data(guest_list):
     """returns Django-compatible DateTimeField object by converting

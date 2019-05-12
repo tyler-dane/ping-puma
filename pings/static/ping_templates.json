@@ -2,24 +2,24 @@
   {
     "subject": "Welcome",
     "body": {
-      "opening": "Good ",
-      "timeOfDay": "{{ timeofDay }} ",
-      "guestFirstName": "{{ guestFirstName }}, ",
-      "message": " and welcome to ",
-      "company": "{{ company }}! ",
-      "room": "Room ",
-      "roomNumber": "{{ roomNumber }} ",
-      "isReady": "is now ready for you. ",
-      "closing": "Enjoy your stay, and let us know if you need anything."
+      "message": "Welcome to ",
+      "company": "COMPANY! Your room is now ready for you. Enjoy your stay, and let us know if you need anything.",
+      "closing": "\n\t-- COMPANY staff"
     }
   },
   {
     "subject": "Checkout Reminder",
     "body": {
-      "opening": "Good ",
-      "timeOfDay": "{{ timeofDay }}, ",
-      "guestFirstName": "{{ guestFirstName }}! ",
-      "message": "This is a friendly reminder that checkout is at 11:00 AM tomorrow."
+      "message": "This is a friendly reminder that checkout is at 11:00 AM tomorrow.",
+      "closing": "\n\t-- COMPANY staff"
+    }
+  },
+  {
+    "subject": "Review us on TripAdvisor",
+    "body": {
+      "message": "We hope you enjoyed your stay at COMPANY. Please leave us a review on TripAdvisor to help other travels find us.",
+      "link:": "\n https://www.tripadvisor.com/Hotels\n",
+      "closing": "\n\t-- COMPANY staff"
     }
   }
 ]

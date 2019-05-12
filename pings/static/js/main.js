@@ -1,7 +1,4 @@
-$(document).ready( function() {
-    $("#template_select").change(function() {
-        var selectedTemplate = $('#template_select').find(":selected").text();
-    });
+$(document).ready( function() { $("#template_select").change(function() { var selectedTemplate = $('#template_select').find(":selected").text(); });
 });
 
 function sendTemplatePing() {
@@ -9,24 +6,27 @@ function sendTemplatePing() {
     var company = $('#company_select').find(":selected").text();
     var guest = $('#guest_select').find(":selected").text();
     var timeOfDay = getTimeOfDay()
-    var greeting = "Good " + timeOfDay + ", "
+    var greeting = "Good " + timeOfDay + " " + guest + ", "
 
-    templateBody = substituteBodyValues(templateBody, company, guest);
+    templateBody = substituteBodyValues(templateBody, company, guest, timeOfDay);
 
     alert(
     "Successfully sent the following Ping: \n" +
-    "\nSender: " + company +
-    "\nRecipient: " + guest +
-    "\nMessage: \n" + greeting + "\n" + templateBody
+    "----------------------------------------------------\n" +
+    "*SENDER: " + company +
+    "\n*RECIPIENT: " + guest +
+    "\n*MESSAGE: \n" + greeting + "\n" + templateBody +
+    "\n----------------------------------------------------"
     );
 }
 
-function substituteBodyValues(body, company, guest) {
+function substituteBodyValues(body, company, guest, timeOfDay) {
    var mapObj = {
        COMPANY: company,
-       GUEST: guest
+       GUEST: guest,
+       TIMEOFDAY: timeOfDay
     };
-    body = body.replace(/COMPANY|GUEST/gi, function(matched){
+    body = body.replace(/COMPANY|GUEST|TIMEOFDAY/gi, function(matched){
       return mapObj[matched];
     });
     return body
@@ -35,9 +35,9 @@ function substituteBodyValues(body, company, guest) {
 function getTimeOfDay() {
     var time = new Date().getHours();
     var timeOfDay = (
-        time < 12 ? "Morning" :
-        time < 18 ? "Afternoon" :
-        "Evening"
+        time < 12 ? "morning" :
+        time < 18 ? "afternoon" :
+        "evening"
         );
     return timeOfDay
 }
