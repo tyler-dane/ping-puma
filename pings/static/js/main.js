@@ -17,8 +17,15 @@ $(document).ready( function() {
 });
 
 function sendPing() {
-    var templateSubject = $('#template_select').find(":selected").text();
-    alert("Successfully sent the following Ping: \n\n" + templateSubject);
+    var templateBody = $('#template_select').find(":selected").text();
+    var company = $('#company_select').find(":selected").text();
+    var guest = $('#guest_select').find(":selected").text();
+    alert(
+    "Successfully sent the following Ping: \n" +
+    "\nSender: " + company +
+    "\nRecipient: " + guest +
+    "\nMessage: \n" + templateBody
+    );
 }
 
 
