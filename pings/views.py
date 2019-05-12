@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, render_to_response
-from django.contrib import messages
 
 from .models import Ping, Company, Guest
 from pings.forms import PingForm
@@ -15,7 +14,6 @@ def index(request):
         ping_form_expanded = PingForm(request.POST)
         if ping_form_expanded.is_valid():
             ping_form_expanded.save()
-            messages.success(request, 'Form saved!!!') #TODO fix or delete
             return redirect('/pings/add-ping')
         else:
             print('Invalid form')
