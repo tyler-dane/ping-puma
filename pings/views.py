@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, render_to_response
 
 from .models import Ping
-from pings.forms import PingForm, PingFormExpanded
+from pings.forms import PingForm, PingForm
 
 
 def index(request):
@@ -9,19 +9,19 @@ def index(request):
     pings = Ping.objects.order_by('subject')
 
     if request.method == 'POST':
-        ping_form_expanded = PingFormExpanded(request.POST)
+        ping_form_expanded = PingForm(request.POST)
         if ping_form_expanded.is_valid():
             ping_form_expanded.save()
             return redirect('/pings/add-ping')
         else:
             print('Invalid form')
     else:
-        ping_form_expanded = PingFormExpanded(initial={
-            'subject': 'Give your Ping a subject',
+        ping_form = PingForm(initial={
+            'subject': 'Enter subject here',
             'body': 'Enter message details here',
             'is_template': False
         })
-        context = {'pings': pings, 'ping_form_expanded': ping_form_expanded}
+        context = {'pings': pings, 'ping_form': ping_form}
         return render(request, 'pings/index.html', context)
 
 
