@@ -30,13 +30,25 @@ Deploy
 - accessing shell `python manage.py shell`
 - flush db: `python manage.py flush`
     - deletes admin data, too, though. So use `python manage.py createsuperuser`
+- if getting `ValueError`s after trying to `migrate`, delete all migrations under `migrations/`
+(except `__init__.py`) and `makemigrations` and `migrate` again
+- ^ might also have to delete sqlite3 db
+- Listing k,v s in POST: 
+```
+        for key, value in request.POST.items():
+            print('Key: %s \n Value: %s' % (key, value))
+```
 
 ---
 ### How to Use
 Views
 
+Adding Templates
+- Use `COMPANY` and `GUEST` as placeholders
+
 Requirements
 - django-extensions
+- PyMsgBox (?)
 
 ### Design Decisions
 **Stack**
@@ -48,6 +60,7 @@ Requirements
 - Refer to messages as `pings` in order to avoid naming conflicts with Django
 - Removed `id` from .json because Django auto-assigns and id
 - Removed `reservation` from .json to facilitate auto-import to Django.
+- Models to validate data (`is_valid`)
 
 ### If Had More Time
 - Eliminate all hard-coded values (i.e. urls in templates)

@@ -14,7 +14,7 @@
     <div>
         <h1>Send Template Ping</h1>
         <p>
-        Select template Ping to Use:
+        Select template Ping to use:
         <select id="template_select">
             {% for ping in pings %}
                 {% if ping.is_template is True %}
@@ -48,10 +48,30 @@
         <div class="container">
         {% csrf_token %}
 
-        <h1>Send Custom Ping</h1>
+        <h1>Send Custom Ping or Create New Template</h1>
+            <h3>Instructions</h3>
+            <p>1) Fill out the below 'Ping Form' to create a custom Ping or create a new Ping Template.
+                Click the button once your done to send/save your Ping.
+                <ul>
+                    <li>To create a new Template, check the 'Is template' box.</li>
+                    <li>Templates support the following keywords: COMPANY, GUEST, TIMEOFDAY.</li>
+                    <li> If you use any of these words in your template,
+                        they will be dynamically substituted with their appropriate values
+                        once you click 'Send Template Ping'</li>
+                </ul>
+            </p>
+            <p>2) After sending your form, view your Ping:</p>
+            <ul>
+                <li>If you created a new Template Ping, you can start using it under the
+                'Send Template Ping' section of this page.</li>
+                <li>If you created a custom Ping, you can view it under the 'Custom Ping History'
+                list on this page or by looking for the message surrounded by ******s in your terminal</li>
+            </ul>
+            <br>
+            <h3>Ping Form</h3>
             {{ ping_form.as_p }}
             <p></p>
-            <button type="submit" class="btn btn-default">Send Custom Ping</button>
+            <button type="submit" class="btn btn-default">Send Custom Ping / Save New Template</button>
         </div>
     </form>
 
