@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, render_to_response
 
-from .models import Ping
+from .models import Ping, Company, Guest
 from pings.forms import PingForm, PingForm
 
 
 def index(request):
     """TODO comment"""
     pings = Ping.objects.order_by('subject')
+    companies = Company.objects.all()
+    guests = Guest.objects.all()
 
     if request.method == 'POST':
         ping_form_expanded = PingForm(request.POST)
@@ -21,7 +23,12 @@ def index(request):
             'body': 'Enter message details here',
             'is_template': False
         })
-        context = {'pings': pings, 'ping_form': ping_form}
+        context = {
+            'companies': companies,
+            'guests': guests,
+            'pings': pings,
+            'ping_form': ping_form
+        }
         return render(request, 'pings/index.html', context)
 
 

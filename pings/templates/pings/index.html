@@ -23,7 +23,7 @@
         {% endif %}
     </div>
     <div>
-        <h1>Send A Template Ping</h1>
+        <h1>Send Template Ping</h1>
         {% if pings %}
             {% for ping in pings %}
                 {% if ping.is_template is True %}
@@ -44,6 +44,7 @@
         <br>
     </div>
     <div>
+        <p>
         Select Template to Use:
         <select id="template_select">
             {% for ping in pings %}
@@ -54,6 +55,21 @@
                 {% endif %}
             {% endfor %}
         </select>
+        <p>
+        Select company to send Ping:
+        <select id="company_select">
+            {% for company in companies %}
+                <option>{{ company.company }}</option>
+            {% endfor %}
+        </select>
+        <p>
+        Select guest to receive Ping:
+        <select id="guest_select">
+            {% for guest in guests %}
+                <option>{{ guest.lastName }}</option>
+            {% endfor %}
+        </select>
+        <p>
         <button type="submit" class="btn btn-default"
                 onclick="sendPing()">
             Send Template Ping
@@ -63,7 +79,7 @@
         <div class="container">
         {% csrf_token %}
 
-        <h1>Add Ping</h1>
+        <h1>Send Custom Ping</h1>
             {{ ping_form.as_p }}
             Company (custom form): <input type="text" name="custom-company">
             <br>
