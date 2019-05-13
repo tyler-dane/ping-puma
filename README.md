@@ -41,8 +41,9 @@ Feel free to email me if you have any issues: tyler.hitzeman@gmail.com
 - Django: I decided to use this framework primarily because I wanted to improve my skills with it. I had used it 
 in a past role, but I never created a full app by myself with Django. 
 - Python: Using Python was a result of deciding to use Django.
-- JavaScript, CSS, jQuery, AJAX, HTML: I enjoy working on the frontend as much as the backend, so adding these 
-technologies gave me a good excuse to learn more about them. Some of the features were especially useful in 
+- JavaScript, CSS, Bootstrap, jQuery, AJAX, HTML: I enjoy working on the frontend as much as the backend, so adding these 
+technologies gave me a good excuse to learn how to incorporate them into a Django app.
+Some of the features were especially useful in 
 accomplishing simple tasks that would've taken more work with Django (like sending a simple alert or creating a custom form)  
 
 **Design**
@@ -98,6 +99,8 @@ functionality, but I was worried I wouldn't have enough time to do this.)
 - Fixed keyword bug (mentioned under point 1 under `Send Custom Ping or Create New Template`)
 - Added unit tests for each core feature
 - Eliminate hard-coded values (i.e. urls in templates)
+- Added support for room numbers in messages (they're in model, but not rendered to view or 
+able to be dynamically substituted)
 - Make model more flexible so none of the `.json` files would need to be edited before importing
 - Implemented class-based Views
 - Abstract styling and templating to reduce duplication (e.g. when rendering list of pings across multiple .html files)
