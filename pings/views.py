@@ -1,28 +1,31 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.core.exceptions import ValidationError
+from django.shortcuts import render, redirect
 
 from .models import Ping, Company, Guest
 from pings.forms import PingForm
 
 
 def index(request):
-    """TODO comment"""
+    """Instantiates and saves ping form"""
     pings = Ping.objects.order_by('subject')
     companies = Company.objects.all()
     guests = Guest.objects.all()
 
     if request.method == 'POST':
-        ping_form_expanded = PingForm(request.POST)
-        if ping_form_expanded.is_valid():
-            ping_form_expanded.save()
+        ping_form = PingForm(request.POST)
+        if ping_form.is_valid():
+            ping_form.save()
             return redirect('/pings/add-ping')
         else:
-            print('Invalid form')
+            # uses placeholders (to avoid coercing variables into message),
+            # key mappings (so variables can be in any order or omitted altogether), and
+            # wraps message with `gettext` (to enable translation)
+            # in effort to provide more useful error
+            raise ValidationError(_('Invalid form value: %(value)s'), code='invalid')
     else:
         ping_form = PingForm(initial={
             'subject': 'Enter subject here',
-            'body': 'Enter message details here.\n\nAfter clicking Send Custom Ping, you can view it under'
-                    ' the Custom Ping History list on this page or by looking for the message surrounded '
-                    'by *****s in your terminal',
+            'body': 'Enter message details here',
             'is_template': False
         })
         context = {
@@ -64,7 +67,7 @@ def add_ping(request):
             ping_form.save()
             return redirect('/pings')
         else:
-            print('Invalid form')
+            raise ValidationError(_('Invalid form value: %(value)s'), code='invalid')
     else:
         ping_form = PingForm(initial={'subject': 'Enter a subject'})
 
@@ -72,23 +75,11 @@ def add_ping(request):
         return render(request, 'pings/add_ping.html', context)
 
 
-def add_ping_from_template(request):
-    current_templates = Ping.objects.filter(is_template=True).order_by('subject')
-
-    if request.method == 'POST':
-        context = {}
-        return render_to_response('add_ping_from_template.html', context)
-    else:
-        ping_template = PingForm()
-        print('ping_template:', ping_template)
-        context = {'current_templates': current_templates,
-                   'ping_template': ping_template}
-        return render(request, 'pings/add_ping_from_template.html', context)
-
-
 ###########################
 # Utility Functions       #
 ###########################
+
+
 def get_template_bool(request):
     if "is_template" in request.POST:  # only present if user checked form
         return True

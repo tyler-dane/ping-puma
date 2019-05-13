@@ -10,9 +10,6 @@ urlpatterns = [
     # /pings/add-ping
     path('add-ping/', views.add_ping, name='add-ping'),
 
-    # /pings/add-ping-from-template
-    path('add-ping-from-template/', views.add_ping_from_template, name='add-ping-from-template'),
-
     # /pings/templates/
     path('templates/', views.templates, name='templates'),
 

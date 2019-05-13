@@ -10,18 +10,17 @@ class PingForm(ModelForm):
 
     def save(self, commit=True):
         ping = super(PingForm, self).save(commit=False)
-        ping.subject = self.cleaned_data['subject']
-        ping.body = self.cleaned_data['body']
-        ping.guest = self.cleaned_data['guest']
-        ping.company = self.cleaned_data['company']
 
         if commit:
-            ping.save()
-            success_str = \
-                "**********\n" \
-                "Successfully sent the following Ping: \n \nSender: {} \nRecipient: {} \nMessage: {}\n" \
-                "***********\n".format(
-                    ping.company, ping.guest, ping.body)
-            print(success_str)
+            try:
+                ping.save()
+                success_str = \
+                    "**********\n" \
+                    "Successfully sent the following Ping: \n \nSender: {} \nRecipient: {} \nMessage: {}\n" \
+                    "***********\n".format(ping.company, ping.guest, ping.body)
+                print(success_str)
+            except ValueError:
+                print("Invalid value found in PingForm")
+
         return ping
 
