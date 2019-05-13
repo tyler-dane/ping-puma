@@ -12,10 +12,6 @@ class Company(models.Model):
         """returns a human-readable representation of the model"""
         return self.company
 
-    def update_field(self, key, value):
-        getattr(self, key)
-        setattr(self, key, value)
-
 
 class Guest(models.Model):
     firstName = models.CharField(max_length=50)
