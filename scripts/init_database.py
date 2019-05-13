@@ -3,12 +3,14 @@ import datetime
 from pings.models import Guest, Company, Ping
 
 placeholder_company = Company.objects.create(
+    id=999,
     company="Placeholder Company",
     city="Placeholder City",
     timezone="Placeholder Timezone"
 )
 
 placeholder_guest = Guest.objects.create(
+    id=998,
     firstName="Placeholder Guest",
     lastName="Placeholder Guest",
     reservation="Spam",
@@ -17,6 +19,7 @@ placeholder_guest = Guest.objects.create(
     startTimestamp=datetime.datetime.now(),
     endTimestamp=datetime.datetime.now() + datetime.timedelta(days=2)
 )
+
 
 def run():
 
