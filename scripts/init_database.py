@@ -1,5 +1,7 @@
 import json
 import datetime
+from django.utils import timezone
+
 from pings.models import Guest, Company, Ping
 
 placeholder_company = Company.objects.create(
@@ -16,8 +18,8 @@ placeholder_guest = Guest.objects.create(
     reservation="Spam",
     email="ham@gmail.com",
     roomNumber=999,
-    startTimestamp=datetime.datetime.now(),
-    endTimestamp=datetime.datetime.now() + datetime.timedelta(days=2)
+    startTimestamp=timezone.now(),
+    endTimestamp=timezone.now() + timezone.timedelta(days=3)
 )
 
 
