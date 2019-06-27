@@ -49,6 +49,18 @@ def history(request):
     context = {'custom_ping_history': custom_ping_history}
     return render(request, 'pings/history.html', context)
 
+def analytics(request):
+    """returns model statistics"""
+    ping_count = Ping.objects.count()
+    guest_count = Guest.objects.count()
+    company_count = Company.objects.count()
+    context = {
+        'ping_count': ping_count,
+        'company_count': company_count,
+        'guest_count': guest_count
+    }
+    return render(request, 'pings/analytics.html', context)
+
 def add_ping(request):
     """creates ping, saves to DB, and redirects to index"""
     ping_templates = Ping.objects.filter(is_template=True).order_by('subject')

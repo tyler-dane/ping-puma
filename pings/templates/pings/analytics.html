@@ -1,0 +1,17 @@
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<div>
+    Total Pings: {{ ping_count }}
+    Total Companies: {{ company_count }}
+    Total Guests: {{ guest_count }}
+</div>
+
+
+{% endblock %}

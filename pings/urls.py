@@ -14,6 +14,9 @@ urlpatterns = [
     path('templates/', views.templates, name='templates'),
 
     # /pings/history/
-    path('history/', views.history, name='history')
+    path('history/', views.history, name='history'),
+
+    # /pings/analytics/
+    path('analytics/', views.analytics, name='analytics'),
 
 ]
