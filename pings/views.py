@@ -43,6 +43,11 @@ def templates(request):
     context = {'ping_templates': ping_templates}
     return render(request, 'pings/ping_templates.html', context)
 
+def history(request):
+    """returns history of sent Pings"""
+    custom_ping_history = Ping.objects.filter(is_template=False).order_by('subject')
+    context = {'custom_ping_history': custom_ping_history}
+    return render(request, 'pings/history.html', context)
 
 def add_ping(request):
     """creates ping, saves to DB, and redirects to index"""
