@@ -33,7 +33,6 @@ python -W ignore manage.py runscript init_database
 ### Follow on-screen instructions from http://127.0.0.1:8000/pings/
 Now that the server is running and default data is imported, you should be able to start using the app!
 
-Feel free to email me if you have any issues: tyler.hitzeman@gmail.com
 
 ----
 # Design Decisions
@@ -57,51 +56,4 @@ accomplishing simple tasks that would've taken more work with Django (like sendi
 - Refer to messages as `pings` in order to avoid naming conflicts with Django
 - Removed `id` from .json because Django auto-assigns and id
 - Removed `reservation` from .json to facilitate auto-import to Django.
-
 ----
-# Process for verifying correctness
-I'll address this on a feature-basis:
-
-**Running the app**
-- re-cloned `ping-puma` repository on development machine (OSX) and re-ran each command in the `How to Use` section
-- ^ did the same on an Ubuntu machine
-
-**Company, Guest, and Ping Models:**
-- view in the Django shell or admin page to verify fields were correct and that a user could add a new model
-- Django models and forms do a great job validating data, so I let them handle this and simply added some error-handling
-in case something went wrong
-
-**Importing models from JSON files:**
-- Run script from terminal, then use shell/admin page/view to verify they were created
-
-**Greeting message:**
-- send template pings and verify the alert had correct values at different times of day 
-(this would've been a great one to unit test, but I did so manually by checking at different parts of day)
-
-**Specifying guest/company for templates:**
-- After deciding on representing Guest/Company fields as dropdown forms and foreign keys, I was able to simply
-select an option and test sending an alert
-
-**Adding a new template / custom message:**
-- Check the shell/admin page/UI to verify the new Ping model was saved
-- Check terminal to make sure POST had successful 302 code  
-
-**Generating final message output:**
-- For templates: simply reviewing the alert in browser. Tested with different values and casing (how the bug was found
-that resulted in lower-cased keywords returning as `undefined`.)
-- For custom pings: viewing the history list contains new ping, and print message in terminal
-
-(I would've loved to apply TDD practices to this project by writing my tests first and having them verify
-functionality, but I was worried I wouldn't have enough time to do this.)  
-
-----
-# If Had More Time
-- Fixed keyword bug (mentioned under point 1 under `Send Custom Ping or Create New Template`)
-- Added unit tests for each core feature
-- Eliminate hard-coded values (i.e. urls in templates)
-- Added support for room numbers in messages (they're in model, but not rendered to view or 
-able to be dynamically substituted)
-- Make model more flexible so none of the `.json` files would need to be edited before importing
-- Implemented class-based Views
-- Abstract styling and templating to reduce duplication (e.g. when rendering list of pings across multiple .html files)
-- Use Django's `data migration` to import data instead of script

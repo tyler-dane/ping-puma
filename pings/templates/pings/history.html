@@ -1,9 +1,12 @@
-{% if recent_pings %}
+{% if custom_ping_history %}
+A list of all saved custom Pings from this account
     <ul>
-    {% for ping in recent_pings %}
-        <li><a href="/pings/{{ guest_id }}/">{{ ping.body }}</a></li>
+    {% for ping in custom_ping_history %}
+        <b>{{ ping.subject }}:</b>
+            {{ ping.body }}
+        <br>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No pings are available.</p>
+    <p>No custom pings sent.</p>
 {% endif %}
